@@ -21,9 +21,9 @@ jobs:
     - name: Deploy via SSH
       run: |
         ssh -o StrictHostKeyChecking=no ec2-user@54.151.174.228 << 'EOF'
-        cd ~/Rakha_blog
-        git pull origin main
-        sudo cp index.html /usr/share/nginx/html/index.html
-        sudo systemctl restart nginx
-        aws s3 cp/user/share/nginx/html/index.html s3://bucketospiris
-      EOF
+            cd ~/Rakha_blog
+            git pull origin main
+            sudo cp index.html /usr/share/nginx/html/index.html
+            sudo systemctl restart nginx
+            aws s3 cp /usr/share/nginx/html/index.html s3://bucketospiris
+          EOF
