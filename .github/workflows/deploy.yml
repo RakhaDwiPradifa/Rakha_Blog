@@ -1,4 +1,4 @@
-name: Deploy EC2 Rakha
+name: Deploy to EC2 Rakha
 
 on:
   push:
@@ -10,20 +10,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Setup SSH
-      uses: webfactory/ssh-agent@v0.5.3
-      with:
-        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-    - name: Deploy via SSH
-      run: |
-        ssh -o StrictHostKeyChecking=no ec2-user@54.151.174.228 << 'EOF'
+      - name: Deploy via SSH
+        run: |
+          ssh -o StrictHostKeyChecking=no ec2-user@54.151.174.228 << 'EOF'
             cd ~/Rakha_blog
             git pull origin main
             sudo cp index.html /usr/share/nginx/html/index.html
             sudo systemctl restart nginx
             aws s3 cp /usr/share/nginx/html/index.html s3://bucketospiris
-  EOF
+          EOF
